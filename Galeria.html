@@ -16,12 +16,12 @@ html, body {
 
 /* ===== FONDO TIPO PAPEL TAPIZ ===== */
 body {
-  background-color: #E1E3AC; /* MARFIL */
+  background-color: #E1E3AC;
   background-image: url("pattern-cromazar.svg");
   background-repeat: repeat;
 }
 
-/* ===== MENÚ SUPERIOR (IGUAL AL INDEX) ===== */
+/* ===== MENÚ SUPERIOR ===== */
 :root {
   --glass-dark: rgba(0, 0, 0, 0.35);
   --glass-blur: blur(10px);
@@ -37,10 +37,8 @@ nav {
   gap: 2rem;
   padding: 1rem 0;
   z-index: 10;
-
   background: var(--glass-dark);
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 nav a {
@@ -61,7 +59,7 @@ nav a:hover {
 
 /* ===== CONTENIDO ===== */
 .main {
-  padding-top: 120px; /* espacio para el menú fijo */
+  padding-top: 120px;
   padding-bottom: 60px;
   display: flex;
   justify-content: center;
@@ -81,17 +79,37 @@ nav a:hover {
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transform-style: preserve-3d;
 }
 
-/* Imagen */
+/* Efecto hover tipo Complementos */
+@media (hover: hover) {
+  .item:hover {
+    transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+  }
+}
+
+/* Imagen con tamaño uniforme */
 .item img {
   width: 100%;
-  height: auto;
+  height: 280px;              /* 🔧 ajustá este valor si querés */
+  object-fit: cover;
   display: block;
   border-radius: 6px;
+  transition: transform 0.35s ease;
 }
 
-/* Texto debajo */
+/* Movimiento sutil de la imagen */
+@media (hover: hover) {
+  .item:hover img {
+    transform: scale(1.04);
+  }
+}
+
+/* Texto */
 .item p {
   margin-top: 0.8rem;
   font-size: 0.95rem;
@@ -104,13 +122,16 @@ nav a:hover {
   .gallery {
     grid-template-columns: 1fr;
   }
+
+  .item img {
+    height: 220px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- MENÚ -->
 <nav>
   <a href="index.html">Inicio</a>
   <a href="Galeria.html">Galería</a>
@@ -119,7 +140,6 @@ nav a:hover {
   <a href="#">Contacto</a>
 </nav>
 
-<!-- CONTENIDO -->
 <main class="main">
   <section class="gallery">
 
