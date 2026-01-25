@@ -1,137 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Croma-Zar</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Croma-Zar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: Arial, Helvetica, sans-serif;
-      color: white;
-    }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
+/* Canvas WebGL */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
 
-    .container {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      backdrop-filter: blur(2px);
-    }
+/* ===== MENÚ SUPERIOR ===== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  z-index: 10;
 
-    h1 {
-      font-size: 3rem;
-      letter-spacing: 0.15em;
-      margin: 0;
-    }
+  /* esmerilado */
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+}
 
-    p {
-      margin-top: 1rem;
-      opacity: 0.85;
-    }
-  </style>
+nav a {
+  text-decoration: none;
+  color: white;
+  background: black;
+  padding: 0.6rem 1rem;
+  transition: all 0.25s ease;
+  transform-origin: top;
+  display: inline-block;
+}
+
+/* Hover pedido */
+nav a:hover {
+  background: white;
+  color: black;
+  transform: scaleY(1.1);
+}
+
+/* ===== CONTENIDO CENTRAL ===== */
+.container {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.panel {
+  padding: 3rem 4rem;
+  text-align: center;
+
+  /* fondo esmerilado */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 8px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+.panel h1 {
+  margin: 0;
+  font-size: 3rem;
+  letter-spacing: 0.15em;
+}
+
+.panel p {
+  margin-top: 1rem;
+  opacity: 0.85;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<!-- MENÚ -->
+<nav>
+  <a href="#">Inicio</a>
+  <a href="#">Galería</a>
+  <a href="#">Proyectos</a>
+  <a href="#">Proceso</a>
+  <a href="#">Contacto</a>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="container">
+  <div class="panel">
     <h1>CROMA-ZAR</h1>
-    <p>Three.js · Shader · Color vivo</p>
+    <p>Color · WebGL · Experimentos visuales</p>
   </div>
+</div>
 
-  <!-- Three.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
 
-  <script>
-    let scene, camera, renderer, mesh;
-    let startTime = Date.now();
+<script>
+let scene, camera, renderer, mesh;
+let startTime = Date.now();
 
-    init();
-    animate();
+init();
+animate();
 
-    function init() {
-      scene = new THREE.Scene();
+function init() {
+  scene = new THREE.Scene();
 
-      camera = new THREE.OrthographicCamera(
-        -1, 1, 1, -1, 0, 1
-      );
+  camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-      renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      document.body.appendChild(renderer.domElement);
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
 
-      const geometry = new THREE.PlaneGeometry(2, 2);
+  const geometry = new THREE.PlaneGeometry(2, 2);
 
-      const material = new THREE.ShaderMaterial({
-        uniforms: {
-          u_time: { value: 0 },
-          u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-        },
-        vertexShader: `
-          void main() {
-            gl_Position = vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: `
-          uniform float u_time;
-          uniform vec2 u_resolution;
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      u_time: { value: 0 },
+      u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+    },
+    vertexShader: `
+      void main() {
+        gl_Position = vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: `
+      uniform float u_time;
+      uniform vec2 u_resolution;
 
-          vec3 palette(float t) {
-            return vec3(
-              0.5 + 0.5 * cos(6.2831 * (t + vec3(0.0, 0.33, 0.67)))
-            );
-          }
+      vec3 palette(float t) {
+        return vec3(
+          0.5 + 0.5 * cos(6.2831 * (t + vec3(0.0, 0.33, 0.67)))
+        );
+      }
 
-          void main() {
-            vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-            uv -= 0.5;
-            uv.x *= u_resolution.x / u_resolution.y;
+      void main() {
+        vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+        uv -= 0.5;
+        uv.x *= u_resolution.x / u_resolution.y;
 
-            float t = u_time * 0.1;
-            float d = length(uv) + sin(t + uv.x * 3.0 + uv.y * 3.0);
+        float t = u_time * 0.15;
+        float d = length(uv) + sin(t + uv.x * 3.0 + uv.y * 3.0);
 
-            vec3 color = palette(d + t);
-            gl_FragColor = vec4(color, 1.0);
-          }
-        `
-      });
+        vec3 color = palette(d + t);
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `
+  });
 
-      mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
+  mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
 
-      window.addEventListener("resize", onResize);
-    }
+  window.addEventListener("resize", onResize);
+}
 
-    function onResize() {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      mesh.material.uniforms.u_resolution.value.set(
-        window.innerWidth,
-        window.innerHeight
-      );
-    }
+function onResize() {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  mesh.material.uniforms.u_resolution.value.set(
+    window.innerWidth,
+    window.innerHeight
+  );
+}
 
-    function animate() {
-      requestAnimationFrame(animate);
-      mesh.material.uniforms.u_time.value = (Date.now() - startTime) * 0.001;
-      renderer.render(scene, camera);
-    }
-  </script>
+function animate() {
+  requestAnimationFrame(animate);
+  mesh.material.uniforms.u_time.value = (Date.now() - startTime) * 0.001;
+  renderer.render(scene, camera);
+}
+</script>
 
 </body>
 </html>
