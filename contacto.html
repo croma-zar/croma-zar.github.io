@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Croma-Zar · Contacto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111;
+}
+
+/* ===== FONDO ===== */
+body {
+  background-color: #E1E3AC;
+  background-image: url("pattern-cromazar.svg");
+  background-repeat: repeat;
+}
+
+/* ===== MENÚ ===== */
+:root {
+  --glass-dark: rgba(0, 0, 0, 0.35);
+  --glass-blur: blur(10px);
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem 0;
+  z-index: 10;
+  background: var(--glass-dark);
+  backdrop-filter: var(--glass-blur);
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  background: black;
+  padding: 0.6rem 1rem;
+  transition: all 0.25s ease;
+  transform-origin: top;
+  display: inline-block;
+}
+
+nav a:hover {
+  background: white;
+  color: black;
+  transform: scaleY(1.1);
+}
+
+/* ===== CONTENIDO ===== */
+.main {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact {
+  width: min(700px, 90%);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+}
+
+/* ===== TEXTO ===== */
+.contact h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.contact p {
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* ===== FORMULARIO ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+label {
+  font-size: 0.9rem;
+  color: #222;
+}
+
+input,
+textarea {
+  padding: 0.6rem 0.7rem;
+  border-radius: 6px;
+  border: 1px
