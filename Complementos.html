@@ -38,7 +38,6 @@ nav {
   gap: 2rem;
   padding: 1rem 0;
   z-index: 10;
-
   background: var(--glass-dark);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
@@ -82,7 +81,7 @@ nav a:hover {
 
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(4px);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 
@@ -94,17 +93,18 @@ nav a:hover {
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-/* Imagen */
+/* ===== IMAGEN (TAMAÑO FIJO) ===== */
 .item img {
   width: 100%;
-  height: auto;
+  height: 220px;          /* ← tamaño controlado */
+  object-fit: cover;      /* ← recorte sin deformar */
   display: block;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
-/* Texto */
+/* ===== TEXTO ===== */
 .item h3 {
-  margin: 0.8rem 0 0.4rem;
+  margin: 0.9rem 0 0.4rem;
   font-size: 1.1rem;
   letter-spacing: 0.05em;
 }
@@ -120,6 +120,10 @@ nav a:hover {
 @media (max-width: 700px) {
   .complements {
     grid-template-columns: 1fr;
+  }
+
+  .item img {
+    height: 200px;
   }
 }
 </style>
