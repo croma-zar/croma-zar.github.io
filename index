@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Croma-Zar · Caleidoscopios & Espejos Infinitos</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Croma-Zar. Caleidoscopios y espejos infinitos hechos a mano. Óptica, color y luz." />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #0b0b0b;
+      color: #eaeaea;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #bdbdbd;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+    }
+
+    .item {
+      margin-bottom: 40px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      color: #777;
+      border-top: 1px solid #222;
+    }
+
+    a {
+      color: #9ddcff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>CROMA·ZAR</h1>
+    <p>Caleidoscopios y espejos infinitos · Objetos ópticos hechos a mano</p>
+  </header>
+
+  <section>
+    <h2>Caleidoscopios</h2>
+
+    <div class="item">
+      <p>
+        Piezas únicas construidas artesanalmente.  
+        Cada caleidoscopio es una exploración de color, simetría y movimiento.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Espejos infinitos</h2>
+
+    <div class="item">
+      <p>
+        Objetos lumínicos que multiplican el espacio y la percepción.  
+        Diseñados como obras contemplativas y experimentales.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contacto</h2>
+
+    <p>
+      Para consultas, encargos o disponibilidad:<br />
+      <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a>
+    </p>
+  </section>
+
+  <footer>
+    © 2026 · Croma-Zar · Hecho a mano en Argentina
+  </footer>
+
+</body>
+</html>
 
