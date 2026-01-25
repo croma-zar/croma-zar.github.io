@@ -6,47 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    /* Reset básico */
-    * {
-      box-sizing: border-box;
-    }
-
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
+      overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
       color: white;
     }
 
-    /* Fondo multicolor animado */
-    body {
-      background: linear-gradient(
-        135deg,
-        #ff0080,
-        #7928ca,
-        #00c6ff,
-        #00ff99
-      );
-      background-size: 400% 400%;
-      animation: gradientMove 18s ease infinite;
-      overflow: hidden;
+    /* Canvas de fondo */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
 
-    @keyframes gradientMove {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Contenido centrado */
+    /* Contenido encima */
     .container {
+      position: relative;
+      z-index: 1;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100%;
       text-align: center;
       backdrop-filter: blur(2px);
     }
@@ -54,21 +40,59 @@
     h1 {
       font-size: 3rem;
       margin: 0;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
     }
 
     p {
       margin-top: 1rem;
-      font-size: 1.1rem;
       opacity: 0.85;
     }
   </style>
 </head>
 
 <body>
+
+  <canvas id="bg"></canvas>
+
   <div class="container">
     <h1>CROMA-ZAR</h1>
-    <p>Experimentos visuales · WebGL · Color</p>
+    <p>Fondo orgánico · Canvas 2D · Color</p>
   </div>
+
+  <script>
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    let time = 0;
+
+    function draw() {
+      time += 0.5;
+
+      // Gradiente dinámico
+      const grad = ctx.createLinearGradient(
+        0, 0,
+        canvas.width, canvas.height
+      );
+
+      grad.addColorStop(0, `hsl(${(time) % 360}, 80%, 50%)`);
+      grad.addColorStop(0.5, `hsl(${(time + 120) % 360}, 80%, 50%)`);
+      grad.addColorStop(1, `hsl(${(time + 240) % 360}, 80%, 50%)`);
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  </script>
+
 </body>
 </html>
