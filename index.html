@@ -24,6 +24,12 @@ canvas {
   z-index: -1;
 }
 
+/* Variable común para el esmerilado */
+:root {
+  --glass-dark: rgba(0, 0, 0, 0.35);
+  --glass-blur: blur(10px);
+}
+
 /* ===== MENÚ SUPERIOR ===== */
 nav {
   position: fixed;
@@ -36,9 +42,10 @@ nav {
   padding: 1rem 0;
   z-index: 10;
 
-  /* esmerilado */
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(10px);
+  /* esmerilado oscuro */
+  background: var(--glass-dark);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 nav a {
@@ -72,9 +79,11 @@ nav a:hover {
   padding: 3rem 4rem;
   text-align: center;
 
-  /* fondo esmerilado */
-  background: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(15px);
+  /* esmerilado oscuro igual al menú */
+  background: var(--glass-dark);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+
   border-radius: 8px;
   box-shadow: 0 0 30px rgba(0,0,0,0.8);
 }
@@ -107,9 +116,11 @@ nav a:hover {
 <div class="container">
   <div class="panel">
     <h1>CROMA-ZAR</h1>
-    <p>Ofrecemos una experiencia visual interactiva e inmersiva, <br>
-       sumado a un objeto decorativo distintivo <br>
-       de una personalidad evolutiva y proactiva.</p>
+    <p>
+      Ofrecemos una experiencia visual interactiva e inmersiva, <br>
+      sumado a un objeto decorativo distintivo <br>
+      de una personalidad evolutiva y proactiva.
+    </p>
   </div>
 </div>
 
