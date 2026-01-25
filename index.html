@@ -16,7 +16,6 @@
       color: white;
     }
 
-    /* Canvas de fondo */
     canvas {
       position: fixed;
       top: 0;
@@ -24,7 +23,6 @@
       z-index: -1;
     }
 
-    /* Contenido encima */
     .container {
       position: relative;
       z-index: 1;
@@ -39,8 +37,8 @@
 
     h1 {
       font-size: 3rem;
-      margin: 0;
       letter-spacing: 0.15em;
+      margin: 0;
     }
 
     p {
@@ -52,46 +50,87 @@
 
 <body>
 
-  <canvas id="bg"></canvas>
-
   <div class="container">
     <h1>CROMA-ZAR</h1>
-    <p>Fondo orgánico · Canvas 2D · Color</p>
+    <p>Three.js · Shader · Color vivo</p>
   </div>
 
+  <!-- Three.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+
   <script>
-    const canvas = document.getElementById("bg");
-    const ctx = canvas.getContext("2d");
+    let scene, camera, renderer, mesh;
+    let startTime = Date.now();
 
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resize);
-    resize();
+    init();
+    animate();
 
-    let time = 0;
+    function init() {
+      scene = new THREE.Scene();
 
-    function draw() {
-      time += 0.5;
-
-      // Gradiente dinámico
-      const grad = ctx.createLinearGradient(
-        0, 0,
-        canvas.width, canvas.height
+      camera = new THREE.OrthographicCamera(
+        -1, 1, 1, -1, 0, 1
       );
 
-      grad.addColorStop(0, `hsl(${(time) % 360}, 80%, 50%)`);
-      grad.addColorStop(0.5, `hsl(${(time + 120) % 360}, 80%, 50%)`);
-      grad.addColorStop(1, `hsl(${(time + 240) % 360}, 80%, 50%)`);
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
 
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const geometry = new THREE.PlaneGeometry(2, 2);
 
-      requestAnimationFrame(draw);
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          u_time: { value: 0 },
+          u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+        },
+        vertexShader: `
+          void main() {
+            gl_Position = vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform float u_time;
+          uniform vec2 u_resolution;
+
+          vec3 palette(float t) {
+            return vec3(
+              0.5 + 0.5 * cos(6.2831 * (t + vec3(0.0, 0.33, 0.67)))
+            );
+          }
+
+          void main() {
+            vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+            uv -= 0.5;
+            uv.x *= u_resolution.x / u_resolution.y;
+
+            float t = u_time * 0.1;
+            float d = length(uv) + sin(t + uv.x * 3.0 + uv.y * 3.0);
+
+            vec3 color = palette(d + t);
+            gl_FragColor = vec4(color, 1.0);
+          }
+        `
+      });
+
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      window.addEventListener("resize", onResize);
     }
 
-    draw();
+    function onResize() {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      mesh.material.uniforms.u_resolution.value.set(
+        window.innerWidth,
+        window.innerHeight
+      );
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      mesh.material.uniforms.u_time.value = (Date.now() - startTime) * 0.001;
+      renderer.render(scene, camera);
+    }
   </script>
 
 </body>
