@@ -16,17 +16,18 @@ html, body {
 
 /* ===== FONDO TIPO PAPEL TAPIZ ===== */
 body {
-  background-color: #E1E3AC; /* MARFIL */
+  background-color: #e1e3ac;
   background-image: url("pattern-cromazar.svg");
   background-repeat: repeat;
 }
 
-/* ===== MENÚ SUPERIOR (IGUAL AL INDEX) ===== */
+/* ===== VARIABLES ===== */
 :root {
   --glass-dark: rgba(0, 0, 0, 0.35);
   --glass-blur: blur(10px);
 }
 
+/* ===== MENÚ SUPERIOR ===== */
 nav {
   position: fixed;
   top: 0;
@@ -61,26 +62,36 @@ nav a:hover {
 
 /* ===== CONTENIDO ===== */
 .main {
-  padding-top: 120px; /* espacio para el menú fijo */
+  padding-top: 120px;
   padding-bottom: 60px;
   display: flex;
   justify-content: center;
 }
 
-.gallery {
+.complements {
   width: min(1100px, 90%);
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
 }
 
-/* ===== ITEM DE GALERÍA ===== */
+/* ===== ITEM COMPLEMENTO ===== */
 .item {
+  text-decoration: none;
+  color: inherit;
+
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(4px);
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
 /* Imagen */
@@ -91,9 +102,15 @@ nav a:hover {
   border-radius: 6px;
 }
 
-/* Texto debajo */
+/* Texto */
+.item h3 {
+  margin: 0.8rem 0 0.4rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+}
+
 .item p {
-  margin-top: 0.8rem;
+  margin: 0;
   font-size: 0.95rem;
   line-height: 1.4;
   color: #222;
@@ -101,7 +118,7 @@ nav a:hover {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
-  .gallery {
+  .complements {
     grid-template-columns: 1fr;
   }
 }
@@ -121,27 +138,31 @@ nav a:hover {
 
 <!-- CONTENIDO -->
 <main class="main">
-  <section class="gallery">
+  <section class="complements">
 
-    <div class="item">
-      <img src="imagenes/complementos1.png" alt="Partículas">
-      <p>Descripción breve de la obra o experiencia visual.</p>
-    </div>
+    <a class="item" href="particulas.html">
+      <img src="imagenes/complementos1.png" alt="Sistema de Partículas">
+      <h3>Partículas</h3>
+      <p>Experiencia visual generativa basada en GPU y comportamiento orgánico.</p>
+    </a>
 
-    <div class="item">
+    <a class="item" href="caleidoscopio.html">
       <img src="imagenes/complementos2.png" alt="Caleidoscopio">
-      <p>Texto explicativo o conceptual de la pieza.</p>
-    </div>
+      <h3>Caleidoscopio</h3>
+      <p>Exploración geométrica y cromática en tiempo real.</p>
+    </a>
 
-    <div class="item">
-      <img src="img/imagen3.jpg" alt="Obra 3">
-      <p>Detalle del proceso, idea o interacción.</p>
-    </div>
+    <a class="item" href="#">
+      <img src="imagenes/complementos3.png" alt="Complemento futuro">
+      <h3>En desarrollo</h3>
+      <p>Nuevos módulos visuales y experimentales.</p>
+    </a>
 
-    <div class="item">
-      <img src="img/imagen4.jpg" alt="Obra 4">
-      <p>Comentario final o nota curatorial.</p>
-    </div>
+    <a class="item" href="#">
+      <img src="imagenes/complementos4.png" alt="Complemento futuro">
+      <h3>En desarrollo</h3>
+      <p>Piezas interactivas aún en proceso.</p>
+    </a>
 
   </section>
 </main>
