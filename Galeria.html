@@ -72,7 +72,7 @@ nav a:hover {
   gap: 3rem;
 }
 
-/* ===== ITEM DE GALERÍA ===== */
+/* ===== ITEM ===== */
 .item {
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(4px);
@@ -93,15 +93,17 @@ nav a:hover {
 .slider {
   position: relative;
   overflow: hidden;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  display: block;
+  max-height: 100%;
+  object-fit: contain;
   border-radius: 6px;
-  transition: transform 0.35s ease, opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.35s ease;
 }
 
 @media (hover: hover) {
@@ -133,13 +135,8 @@ nav a:hover {
   transform: translateY(-50%) scale(1.1);
 }
 
-.slider .prev {
-  left: 10px;
-}
-
-.slider .next {
-  right: 10px;
-}
+.slider .prev { left: 10px; }
+.slider .next { right: 10px; }
 
 /* Texto */
 .item p {
@@ -155,7 +152,7 @@ nav a:hover {
     grid-template-columns: 1fr;
   }
 
-  .slider img {
+  .slider {
     height: 220px;
   }
 }
@@ -175,9 +172,10 @@ nav a:hover {
 <main class="main">
 <section class="gallery">
 
-  <!-- ITEM 1 CON SLIDER -->
+  <!-- ITEM 1 CON SLIDER Y TAMAÑOS -->
   <div class="item">
-    <div class="slider" data-images="imagenes/Cubo99.png,imagenes/Cubo2.jpeg,imagenes/Cubo3.jpeg">
+    <div class="slider"
+      data-images="imagenes/Cubo99.png|70,imagenes/Cubo2.jpeg|90,imagenes/Cubo3.jpeg|80">
       <img src="imagenes/Cubo99.png" alt="Cubo led">
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
@@ -185,16 +183,10 @@ nav a:hover {
     <p>Cubo led efecto infinito.</p>
   </div>
 
-  <!-- ITEM 2 CON SLIDER -->
-<div class="slider"
- data-images="
-   imagenes/Cubo99.png|70,
-   imagenes/Cubo2.jpeg|90,
-   imagenes/Cubo3.jpeg|80
- ">
-  
+  <!-- ITEM 2 CON SLIDER NORMAL -->
   <div class="item">
-    <div class="slider" data-images="imagenes/Caleidosocpio1000.png,imagenes/Caleidosocpio1000-2.png">
+    <div class="slider"
+      data-images="imagenes/Caleidosocpio1000.png,imagenes/Caleidosocpio1000-2.png">
       <img src="imagenes/Caleidosocpio1000.png" alt="Caleidoscopio">
       <button class="prev">&#10094;</button>
       <button class="next">&#10095;</button>
@@ -202,14 +194,14 @@ nav a:hover {
     <p>Caleidoscopio con cápsula de aceite.</p>
   </div>
 
-  <!-- ITEMS NORMALES -->
+  <!-- ITEM NORMAL -->
   <div class="item">
-    <img src="imagenes/imagen3.jpg" alt="Obra 3">
+    <img src="imagenes/imagen3.jpg" alt="Obra 3" style="width:100%; border-radius:6px;">
     <p>Detalle del proceso, idea o interacción.</p>
   </div>
 
   <div class="item">
-    <img src="imagenes/imagen4.jpg" alt="Obra 4">
+    <img src="imagenes/imagen4.jpg" alt="Obra 4" style="width:100%; border-radius:6px;">
     <p>Comentario final o nota curatorial.</p>
   </div>
 
@@ -218,26 +210,37 @@ nav a:hover {
 
 <script>
 document.querySelectorAll('.slider').forEach(slider => {
-  const images = slider.dataset.images.split(',');
+  const data = slider.dataset.images
+    .split(',')
+    .map(item => item.trim());
+
   const img = slider.querySelector('img');
   let index = 0;
 
-  slider.querySelector('.next').addEventListener('click', () => {
-    index = (index + 1) % images.length;
+  function setImage(i) {
+    const parts = data[i].split('|');
+    const src = parts[0];
+    const size = parts[1] || 90;
+
     img.style.opacity = 0;
+
     setTimeout(() => {
-      img.src = images[index];
+      img.src = src;
+      img.style.width = size + '%';
       img.style.opacity = 1;
     }, 150);
+  }
+
+  setImage(index);
+
+  slider.querySelector('.next').addEventListener('click', () => {
+    index = (index + 1) % data.length;
+    setImage(index);
   });
 
   slider.querySelector('.prev').addEventListener('click', () => {
-    index = (index - 1 + images.length) % images.length;
-    img.style.opacity = 0;
-    setTimeout(() => {
-      img.src = images[index];
-      img.style.opacity = 1;
-    }, 150);
+    index = (index - 1 + data.length) % data.length;
+    setImage(index);
   });
 });
 </script>
