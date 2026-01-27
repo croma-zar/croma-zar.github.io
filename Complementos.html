@@ -59,9 +59,24 @@ nav a:hover {
   transform: scaleY(1.1);
 }
 
+/* ===== TEXTO INTRODUCTORIO ===== */
+.intro-complementos {
+  width: 80%;
+  margin: 120px auto 50px auto;
+  padding: 24px 32px;
+  box-sizing: border-box;
+
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 10px;
+
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
 /* ===== CONTENIDO ===== */
 .main {
-  padding-top: 120px;
   padding-bottom: 60px;
   display: flex;
   justify-content: center;
@@ -93,16 +108,16 @@ nav a:hover {
   box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-/* ===== IMAGEN (TAMAÑO FIJO) ===== */
+/* ===== IMAGEN ===== */
 .item img {
   width: 100%;
-  height: 220px;          /* ← tamaño controlado */
-  object-fit: cover;      /* ← recorte sin deformar */
+  height: 220px;
+  object-fit: cover;
   display: block;
   border-radius: 8px;
 }
 
-/* ===== TEXTO ===== */
+/* ===== TEXTO ITEM ===== */
 .item h3 {
   margin: 0.9rem 0 0.4rem;
   font-size: 1.1rem;
@@ -118,6 +133,11 @@ nav a:hover {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
+  .intro-complementos {
+    width: 90%;
+    padding: 20px;
+  }
+
   .complements {
     grid-template-columns: 1fr;
   }
@@ -139,6 +159,16 @@ nav a:hover {
   <a href="catalogo.html">Catálogo</a>
   <a href="contacto.html">Contacto</a>
 </nav>
+
+<!-- TEXTO SUPERIOR -->
+<div class="intro-complementos">
+  <strong>Complementos para usar con su caleidoscopio.</strong><br>
+  Una página con finas partículas para interactuar y un caleidoscopio digital en pantalla.
+  Usted puede apuntar su caleidoscopio hacia la pantalla para enriquecer los efectos,
+  o disfrutar de la experiencia sin utilizarlo.
+  En algunos casos puede ser necesario aumentar el brillo de la pantalla
+  para realzar los efectos visuales.
+</div>
 
 <!-- CONTENIDO -->
 <main class="main">
