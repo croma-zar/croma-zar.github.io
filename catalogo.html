@@ -14,19 +14,20 @@ html, body {
   color: #111;
 }
 
-/* ===== FONDO TIPO PAPEL TAPIZ ===== */
+/* ===== FONDO ===== */
 body {
   background-color: #E1E3AC;
   background-image: url("pattern-cromazar.svg");
   background-repeat: repeat;
 }
 
-/* ===== MENÚ SUPERIOR (IGUAL A GALERÍA Y COMPLEMENTOS) ===== */
+/* ===== VARIABLES ===== */
 :root {
   --glass-dark: rgba(0, 0, 0, 0.35);
   --glass-blur: blur(10px);
 }
 
+/* ===== MENÚ ===== */
 nav {
   position: fixed;
   top: 0;
@@ -37,10 +38,8 @@ nav {
   gap: 2rem;
   padding: 1rem 0;
   z-index: 10;
-
   background: var(--glass-dark);
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 nav a {
@@ -50,7 +49,6 @@ nav a {
   padding: 0.6rem 1rem;
   transition: all 0.25s ease;
   transform-origin: top;
-  display: inline-block;
 }
 
 nav a:hover {
@@ -59,92 +57,89 @@ nav a:hover {
   transform: scaleY(1.1);
 }
 
+/* ===== TEXTO INTRO ===== */
+.intro-catalogo {
+  width: 80%;
+  margin: 120px auto 50px;
+  padding: 24px 32px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  line-height: 1.55;
+}
+
 /* ===== CONTENIDO ===== */
 .main {
-  padding-top: 120px; /* espacio para el menú fijo */
   padding-bottom: 80px;
   display: flex;
   justify-content: center;
 }
 
-/* ===== BLOQUE CONTACTO ===== */
-.contact {
-  width: min(700px, 90%);
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(6px);
-  border-radius: 12px;
-  padding: 2.5rem;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.18);
-}
-
-/* ===== TEXTO ===== */
-.contact h1 {
-  margin-top: 0;
-  margin-bottom: 0.6rem;
-  font-size: 1.8rem;
-}
-
-.contact p {
-  margin-bottom: 2rem;
-  line-height: 1.5;
-  color: #222;
-}
-
-/* ===== FORMULARIO ===== */
-form {
+/* ===== CATÁLOGO ===== */
+.catalogo {
+  width: min(1200px, 90%);
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
-label {
-  font-size: 0.9rem;
-  color: #222;
+/* ===== FILA ===== */
+.fila {
+  display: grid;
+  grid-template-columns: 120px 1.2fr 2fr 1.4fr 1fr;
+  gap: 1.2rem;
+  align-items: center;
+
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(4px);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-input,
-textarea {
-  padding: 0.6rem 0.7rem;
+/* ===== IMAGEN ===== */
+.fila img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
   border-radius: 6px;
-  border: 1px solid rgba(0,0,0,0.2);
-  font-family: inherit;
-  font-size: 0.95rem;
-  background: rgba(255,255,255,0.8);
 }
 
-textarea {
-  resize: vertical;
-  min-height: 120px;
+/* ===== TEXTO ===== */
+.titulo {
+  font-weight: bold;
 }
 
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #000;
+.datos {
+  font-size: 0.85rem;
+  color: #333;
 }
 
-/* ===== BOTÓN ===== */
-button {
-  align-self: flex-start;
-  padding: 0.6rem 1.4rem;
-  font-size: 0.9rem;
-  border: none;
-  cursor: pointer;
+/* ===== CTA ===== */
+.cta a {
+  text-decoration: none;
   background: black;
   color: white;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
   transition: all 0.25s ease;
 }
 
-button:hover {
+.cta a:hover {
   background: white;
   color: black;
   border: 1px solid black;
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
-  .contact {
-    padding: 2rem 1.5rem;
+@media (max-width: 800px) {
+  .fila {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .fila img {
+    height: 160px;
   }
 }
 </style>
@@ -161,9 +156,49 @@ button:hover {
   <a href="contacto.html">Contacto</a>
 </nav>
 
-<!-- CONTENIDO -->
+<!-- TEXTO INTRODUCTORIO -->
+<div class="intro-catalogo">
+  <strong>Piezas disponibles del universo Croma-Zar.</strong><br>
+  Obras únicas y ediciones limitadas.
+  Para consultas sobre disponibilidad, características o adquisición,
+  comuníquese desde la sección Contacto.
+</div>
+
+<!-- CATÁLOGO -->
 <main class="main">
-  
+  <section class="catalogo">
+
+    <!-- FILA x10 -->
+    <!-- Copiá / editá textos e imágenes -->
+    <div class="fila">
+      <img src="imagenes/catalogo1.jpg" alt="">
+      <div class="titulo">Obra 01</div>
+      <div>Descripción breve de la obra y su carácter visual.</div>
+      <div class="datos">Técnica · Medidas · Año</div>
+      <div class="cta"><a href="contacto.html">Consultar</a></div>
+    </div>
+
+    <!-- Repetir -->
+    <!-- 2 -->
+    <div class="fila"><img src="imagenes/catalogo2.jpg"><div class="titulo">Obra 02</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 3 -->
+    <div class="fila"><img src="imagenes/catalogo3.jpg"><div class="titulo">Obra 03</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 4 -->
+    <div class="fila"><img src="imagenes/catalogo4.jpg"><div class="titulo">Obra 04</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 5 -->
+    <div class="fila"><img src="imagenes/catalogo5.jpg"><div class="titulo">Obra 05</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 6 -->
+    <div class="fila"><img src="imagenes/catalogo6.jpg"><div class="titulo">Obra 06</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 7 -->
+    <div class="fila"><img src="imagenes/catalogo7.jpg"><div class="titulo">Obra 07</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 8 -->
+    <div class="fila"><img src="imagenes/catalogo8.jpg"><div class="titulo">Obra 08</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 9 -->
+    <div class="fila"><img src="imagenes/catalogo9.jpg"><div class="titulo">Obra 09</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+    <!-- 10 -->
+    <div class="fila"><img src="imagenes/catalogo10.jpg"><div class="titulo">Obra 10</div><div>Descripción breve.</div><div class="datos">Técnica · Medidas</div><div class="cta"><a href="contacto.html">Consultar</a></div></div>
+
+  </section>
 </main>
 
 </body>
