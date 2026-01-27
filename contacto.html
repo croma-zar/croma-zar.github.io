@@ -14,19 +14,20 @@ html, body {
   color: #111;
 }
 
-/* ===== FONDO TIPO PAPEL TAPIZ ===== */
+/* ===== FONDO ===== */
 body {
   background-color: #E1E3AC;
   background-image: url("pattern-cromazar.svg");
   background-repeat: repeat;
 }
 
-/* ===== MENÚ SUPERIOR (IGUAL A GALERÍA Y COMPLEMENTOS) ===== */
+/* ===== VARIABLES ===== */
 :root {
   --glass-dark: rgba(0, 0, 0, 0.35);
   --glass-blur: blur(10px);
 }
 
+/* ===== MENÚ ===== */
 nav {
   position: fixed;
   top: 0;
@@ -37,10 +38,8 @@ nav {
   gap: 2rem;
   padding: 1rem 0;
   z-index: 10;
-
   background: var(--glass-dark);
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 nav a {
@@ -50,7 +49,6 @@ nav a {
   padding: 0.6rem 1rem;
   transition: all 0.25s ease;
   transform-origin: top;
-  display: inline-block;
 }
 
 nav a:hover {
@@ -61,7 +59,7 @@ nav a:hover {
 
 /* ===== CONTENIDO ===== */
 .main {
-  padding-top: 120px; /* espacio para el menú fijo */
+  padding-top: 120px;
   padding-bottom: 80px;
   display: flex;
   justify-content: center;
@@ -69,7 +67,7 @@ nav a:hover {
 
 /* ===== BLOQUE CONTACTO ===== */
 .contact {
-  width: min(700px, 90%);
+  width: 80%;
   background: rgba(255,255,255,0.6);
   backdrop-filter: blur(6px);
   border-radius: 12px;
@@ -94,6 +92,13 @@ nav a:hover {
 form {
   display: flex;
   flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* fila nombre + email */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
 }
 
@@ -104,6 +109,7 @@ label {
 
 input,
 textarea {
+  width: 100%;
   padding: 0.6rem 0.7rem;
   border-radius: 6px;
   border: 1px solid rgba(0,0,0,0.2);
@@ -113,8 +119,8 @@ textarea {
 }
 
 textarea {
-  resize: vertical;
-  min-height: 120px;
+  min-height: 140px;
+  resize: both; /* vertical y horizontal */
 }
 
 input:focus,
@@ -142,9 +148,14 @@ button:hover {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .contact {
+    width: 90%;
     padding: 2rem 1.5rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -166,24 +177,27 @@ button:hover {
   <section class="contact">
     <h1>Contacto</h1>
     <p>
-      Si querés comunicarte, compartir una idea o hacer una consulta,
-      podés dejar tu mensaje acá.
+      Si desea comunicarse, compartir una idea o realizar una consulta,
+      puede dejar su mensaje aquí.
     </p>
 
-    <form>
-      <div>
-        <label for="nombre">Nombre</label><br>
-        <input type="text" id="nombre" name="nombre">
-      </div>
+    <form action="mailto:seroleal@gmail.com" method="post" enctype="text/plain">
 
-      <div>
-        <label for="email">Email</label><br>
-        <input type="email" id="email" name="email">
+      <div class="row">
+        <div>
+          <label for="nombre">Nombre</label><br>
+          <input type="text" id="nombre" name="Nombre">
+        </div>
+
+        <div>
+          <label for="email">Email</label><br>
+          <input type="email" id="email" name="Email">
+        </div>
       </div>
 
       <div>
         <label for="mensaje">Mensaje</label><br>
-        <textarea id="mensaje" name="mensaje"></textarea>
+        <textarea id="mensaje" name="Mensaje"></textarea>
       </div>
 
       <button type="submit">Enviar</button>
